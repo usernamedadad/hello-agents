@@ -36,10 +36,25 @@ def user_proxy_input(prompt: str) -> str:
 
 def create_openai_model_client():
     """创建 OpenAI 模型客户端用于测试"""
+    model_id = os.getenv("LLM_MODEL_ID")
+    api_key = os.getenv("LLM_API_KEY")
+    base_url = os.getenv("LLM_BASE_URL")
+
+    missing_vars = [name for name, value in [
+        ("LLM_MODEL_ID", model_id),
+        ("LLM_API_KEY", api_key),
+    ] if not value]
+    if missing_vars:
+        raise ValueError(
+            f"Missing required environment variable(s) for OpenAI model client: "
+            f"{', '.join(missing_vars)}. "
+            f"Please set them before running this script."
+        )
+
     return OpenAIChatCompletionClient(
-        model=os.getenv("LLM_MODEL_ID"),
-        api_key=os.getenv("LLM_API_KEY"),
-        base_url=os.getenv("LLM_BASE_URL"),
+        model=model_id,
+        api_key=api_key,
+        base_url=base_url,
         model_info={
             "function_calling": True,
             "max_tokens": 4096,
