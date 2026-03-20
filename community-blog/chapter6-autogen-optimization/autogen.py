@@ -299,9 +299,10 @@ def evaluate_protocol_closure(result: Any) -> Dict[str, Any]:
             qa_final_pass = True
         if source == "qualityassurance" and re.search(r"\bTEST_FAILED\b", upper_content):
             has_test_failed = True
-        if "REWORK_REQUIRED" in upper_content:
+        # 避免任务文本或系统提示中的控制词“污染”返工/干预标记。
+        if source not in {"user", "system"} and "REWORK_REQUIRED" in upper_content:
             has_rework = True
-        if "INTERVENE" in upper_content:
+        if source not in {"user", "system"} and "INTERVENE" in upper_content:
             has_intervene = True
 
         # 只接受 UserProxy 的精确终止指令，避免“请回复 TERMINATE”被误判为已终止。
