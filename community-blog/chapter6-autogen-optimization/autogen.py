@@ -347,8 +347,8 @@ async def run_software_development_team():
     dialogue_monitor = create_dialogue_monitor(model_client)
     user_proxy = create_user_proxy()
 
-    # 添加终止条件：代码侧硬判定，仅 QA 产出的内部标签触发终止。
-    termination = TextMentionTermination("QA_FINAL_PASS")
+    # 添加终止条件：由 UserProxy 显式输出 TERMINATE 时触发硬终止，确保 QA/监控/用户代理都能完成闭环。
+    termination = TextMentionTermination("TERMINATE")
 
     # 创建团队聊天
     team_chat = RoundRobinGroupChat(
