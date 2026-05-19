@@ -108,6 +108,40 @@ pip install "hello-agents==0.1.1"
 
 我们建议采用"先体验，后实现"的学习路径。在本章中，我们提供了完整的测试文件，你可以重写核心函数并运行测试，以检验你的实现是否正确。这种学习方式既保证了实践性，又确保了学习效果。如果你想深入了解框架的实现细节，或者希望参与到框架的开发中来，可以访问这个[GitHub仓库](https://github.com/jjyaoao/helloagents)。
 
+**在本仓库中一步步学习（推荐）**
+
+本仓库已经在 `code/chapter7/` 提供了可直接运行的配套代码，你可以按下面顺序练习：
+
+1. 准备环境变量（以仓库根目录为当前目录）：
+
+```bash
+cd code/chapter7
+cp .env.example .env
+# 然后编辑 .env，填入你的 LLM_API_KEY、LLM_BASE_URL、LLM_MODEL_ID
+```
+
+2. 先跑最小 demo，确认 LLM 调用打通：
+
+```bash
+python my_main.py
+```
+
+3. 按能力递进学习并运行示例：
+   - `my_llm.py`：自定义 LLM 扩展
+   - `my_simple_agent.py` + `test_simple_agent.py`：基础 Agent 与工具调用
+   - `my_calculator_tool.py` + `test_my_calculator.py`：自定义工具
+   - `my_react_agent.py` + `test_react_agent.py`：ReAct 范式
+   - `my_advanced_search.py` + `test_advanced_search.py`：高级搜索工具封装
+
+4. 每学完一个模块就运行对应测试脚本（本章测试以脚本演示为主）：
+
+```bash
+python test_simple_agent.py
+python test_my_calculator.py
+python test_react_agent.py
+python test_advanced_search.py
+```
+
 在开始之前，让我们用30秒体验使用Hello-agents构建简单智能体！
 
 ```python
